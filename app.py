@@ -1,11 +1,8 @@
 import streamlit as st
 import moviepy.editor as mp
 import speech_recognition as sr
-import pyttsx3
+from gtts import gTTS
 import os
-
-# Initialize Text-to-Speech Engine
-engine = pyttsx3.init()
 
 def extract_audio_from_video(video_file):
     """Extract audio from the video file."""
@@ -34,9 +31,9 @@ def correct_transcription(text):
     return text  # Replace this with GPT-4 API call if needed.
 
 def text_to_speech(text, output_audio_file):
-    """Convert corrected text to speech."""
-    engine.save_to_file(text, output_audio_file)
-    engine.runAndWait()
+    """Convert corrected text to speech using Google TTS."""
+    tts = gTTS(text=text, lang='en')
+    tts.save(output_audio_file)
 
 def replace_audio_in_video(video_file, audio_file):
     """Replace the audio in the original video file with the new audio."""
